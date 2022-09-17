@@ -4,12 +4,12 @@
 
 int main()
 {
-	std::cout << "Ââåäèòå èìÿ ";
+	std::cout << "Ğ’Ğ²ĞµĞ´Ğ¸Ñ‚Ğµ Ğ¸Ğ¼Ñ";
 	std::string name;
 
 	std::getline(std::cin, name);
 
-	std::cout << "Çäğàâñòâóéòå," << name << '!';
+	std::cout << "Ğ—Ğ´Ñ€Ğ°Ğ²ÑÑ‚Ğ²ÑƒĞ¹Ñ‚Ğµ," << name << '!';
 
 	std::cin.get();
 	return 0;
