@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1...3.24)
-project(intro_sort
+project(linsearch
         VERSION 1.0
         LANGUAGES CXX)
-add_executable(intro_sort intro_sort.cpp)
+add_executable(linsearch linr.cpp)
