@@ -1,37 +1,41 @@
 #include <iostream>
-#include <string>
 #include <cmath>
 
-int main() {
-	int i;
-	std::cin >> i;
+using namespace std;
 
-	char c;
-	std::cin >> c;
-
-	int j;
-	std::cin >> j;
-
-	switch (c) {
-	case '+':
-		std::cout << i + j;
-		break;
-	case '-':
-		std::cout << i - j;
-		break;
-	case '*':
-		std::cout << i * j;
-		break;
-	case '/':
-		std::cout << i + j;
-		break;
-	case '^':
-		std::cout << pow(i, j);
-		break;
-	default:
-		std::cout << "Sorry";
-		break;
+int main()
+{
+	char o;
+	double a, b;
+	while (true)
+	{
+		cout << "¬ведите пример" << endl;
+		cin >> a >> o >> b;
+		if (o == '+')
+		{
+			cout << a + b << endl;
+		}
+		if (o == '-')
+		{
+			cout << a - b << endl;
+		}
+		if (o == '*')
+		{
+			cout << a * b << endl;
+		}
+		if (o == '/')
+		{
+			if (b == 0) {
+				cout << "Error" << endl;
+			}
+			else {
+				cout << a / b << endl;
+			}
+		}
+		if (o == '^')
+		{
+			cout << pow(a, b) << endl;
+		}
 	}
-	std::cout << std::endl;
 	return 0;
 }
