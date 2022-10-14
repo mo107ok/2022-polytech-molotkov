@@ -9,7 +9,7 @@ int main()
 	double a, b;
 	while (true)
 	{
-		cout << "Ââåäèòå ïðèìåð" << endl;
+		cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¿Ñ€Ð¸Ð¼ÐµÑ€" << endl;
 		cin >> a >> o >> b;
 		if (o == '+')
 		{
