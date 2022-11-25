@@ -1,32 +1,31 @@
 #include <iostream>
 #include <fstream>
-#include <cmath>
+#include <cstring>
 
 void show_meminfo()
 {
     char parameter[20];
     int value;
     char unit[3];
-    int total, free, avail;
+    int memTotal = 0, memAvailable = 0;
 
     std::ifstream in("/proc/meminfo", std::ios_base::in);
-    if (in.is_open()) {
-        in >> parameter >> total >> unit;
-        in >> parameter >> free >> unit;
-        in >> parameter >> avail >> unit;
-    }
-    else {
-        exit(1);
+    while (in.good())
+    {
+        in >> parameter >> value >> unit;
+        if (std::strcmp(parameter, "MemTotal:") == 0)
+            memTotal = value;
+        if (std::strcmp(parameter, "MemAvailable:") == 0)
+            memAvailable = value;
     }
 
-    float percent = (total - avail) / static_cast<float>(total) * 100;
-    short bars_count = round(percent / 10);
-
-    for (int i = 0; i != bars_count; ++i)
-        std::cout << "|";
-    for (int i = 0; i != 10 - bars_count; ++i)
-        std::cout << ".";
-    std::cout << " " << static_cast<int>(percent) << "%" << std::endl;
+    int percent = memAvailable * 100 / memTotal;
+    for (int i = 0; i < 100; i += 10)
+        if (i < percent)
+            std::cout << '|';
+        else
+            std::cout << '.';
+    std::cout << " " << percent << "%" << std::endl;
 }
 
 int main()
