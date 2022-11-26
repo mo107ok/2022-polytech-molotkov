@@ -5,7 +5,7 @@ using namespace std;
 int main()
 {
 
-int arr[]={1,4,7,2,4,12,432,22,31,22,};
+int arr[]={2,5,8,3,5,11,410,21,32,20,};
 
 int const size1 = 10;
 
