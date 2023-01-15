@@ -1,5 +1,6 @@
-cmake_minimum_required(VERSION 3.1...3.24)
-project(intro_sort
-        VERSION 1.0
-        LANGUAGES CXX)
-add_executable(intro_sort intro_sort.cpp)
+cmake_minimum_required(VERSION 3.24)
+project(intro_sort04)
+
+set(CMAKE_CXX_STANDARD 14)
+
+add_executable(intro_sort04.exe main.cpp)
