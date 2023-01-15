@@ -1,45 +1,42 @@
-usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]
-           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
-           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]
-           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
-           [--super-prefix=<path>] [--config-env=<name>=<envvar>]
-           <command> [<args>]
+#include <iostream>
+#include <cstring>
+#include "String.h"
 
-These are common Git commands used in various situations:
+String::String() {
+  length = 0;
+  data = new char[1];
+  data[0] = '\0';
+}
 
-start a working area (see also: git help tutorial)
-   clone     Clone a repository into a new directory
-   init      Create an empty Git repository or reinitialize an existing one
+String::String(const char *init) {
+  std::cout << "ctor" << std::endl;
+  length = std::strlen(init);
+  data = new char[length+1];
+  std::strcpy(data, init);
+}
 
-work on the current change (see also: git help everyday)
-   add       Add file contents to the index
-   mv        Move or rename a file, a directory, or a symlink
-   restore   Restore working tree files
-   rm        Remove files from the working tree and from the index
+String::~String() {
+  delete[] data;
+}
 
-examine the history and state (see also: git help revisions)
-   bisect    Use binary search to find the commit that introduced a bug
-   diff      Show changes between commits, commit and working tree, etc
-   grep      Print lines matching a pattern
-   log       Show commit logs
-   show      Show various types of objects
-   status    Show the working tree status
+unsigned int String::get_length() const {
+  return length;
+}
 
-grow, mark and tweak your common history
-   branch    List, create, or delete branches
-   commit    Record changes to the repository
-   merge     Join two or more development histories together
-   rebase    Reapply commits on top of another base tip
-   reset     Reset current HEAD to the specified state
-   switch    Switch branches
-   tag       Create, list, delete or verify a tag object signed with GPG
+const char *String::c_str() const {
+  return data;
+}
 
-collaborate (see also: git help workflows)
-   fetch     Download objects and refs from another repository
-   pull      Fetch from and integrate with another repository or a local branch
-   push      Update remote refs along with associated objects
+char String::operator[](unsigned int pos) {
+  return data[pos];
+}
 
-'git help -a' and 'git help -g' list available subcommands and some
-concept guides. See 'git help <command>' or 'git help <concept>'
-to read about a specific subcommand or concept.
-See 'git help git' for an overview of the system.
+String String::operator+(const String &other) {
+  String result;
+  result.length = length + other.length;
+  delete[] result.data;
+  result.data = new char[result.length + 1];
+  std::strcpy(result.data, data);
+  std::strcat(result.data, other.data);
+  return result;
+}
