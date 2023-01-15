@@ -1,45 +1,32 @@
-usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]
-           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
-           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]
-           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
-           [--super-prefix=<path>] [--config-env=<name>=<envvar>]
-           <command> [<args>]
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include <vector>
+#include "doctest.h"
+#include "Json.h"
 
-These are common Git commands used in various situations:
+TEST_CASE("tests for json") {
+CHECK_EQ(Json{{}, {}}.toString(), "{}");
 
-start a working area (see also: git help tutorial)
-   clone     Clone a repository into a new directory
-   init      Create an empty Git repository or reinitialize an existing one
+std::vector<std::string> keys = {"bool_token",
+                                 "str_token",
+                                 "array_token",
+                                 "double_token",
+                                 "int_token"};
+std::vector<Token> tokens = {BoolToken(true),
+                             StrToken("hi"),
+                             ArrayToken({NumToken(1), StrToken("ok"), BoolToken(false)}),
+                             DoubleToken(7.68),
+                             NumToken(9090)};
 
-work on the current change (see also: git help everyday)
-   add       Add file contents to the index
-   mv        Move or rename a file, a directory, or a symlink
-   restore   Restore working tree files
-   rm        Remove files from the working tree and from the index
+CHECK_EQ(Json{keys, tokens}.toString(),
+"{\"bool_token\":true,\"str_token\":\"hi\",\"array_token\":[1,\"ok\",false],"
+"\"double_token\":7.680000,\"int_token\":9090}");
 
-examine the history and state (see also: git help revisions)
-   bisect    Use binary search to find the commit that introduced a bug
-   diff      Show changes between commits, commit and working tree, etc
-   grep      Print lines matching a pattern
-   log       Show commit logs
-   show      Show various types of objects
-   status    Show the working tree status
+CHECK_EQ(Json{{"str_token"}, {StrToken("hello world")}}.toString(),
+"{\"str_token\":\"hello world\"}");
 
-grow, mark and tweak your common history
-   branch    List, create, or delete branches
-   commit    Record changes to the repository
-   merge     Join two or more development histories together
-   rebase    Reapply commits on top of another base tip
-   reset     Reset current HEAD to the specified state
-   switch    Switch branches
-   tag       Create, list, delete or verify a tag object signed with GPG
+keys = {"array_token"};
+tokens = {ArrayToken({StrToken("hello"), ArrayToken({BoolToken(true), BoolToken(false)}), StrToken("world")})};
 
-collaborate (see also: git help workflows)
-   fetch     Download objects and refs from another repository
-   pull      Fetch from and integrate with another repository or a local branch
-   push      Update remote refs along with associated objects
-
-'git help -a' and 'git help -g' list available subcommands and some
-concept guides. See 'git help <command>' or 'git help <concept>'
-to read about a specific subcommand or concept.
-See 'git help git' for an overview of the system.
+CHECK_EQ(Json{keys, tokens}.toString(),
+"{\"array_token\":[\"hello\",[true,false],\"world\"]}");
+}
